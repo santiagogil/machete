@@ -1,0 +1,18 @@
+#!/bin/bash
+if `git rev-parse --git-dir > /dev/null 2>&1`; then
+  MACHETES=`git rev-parse --show-toplevel`/.machetes
+  if [ $# != 0 ] && [ -e $MACHETES/$1 ]; then 
+    echo -e '\033[0;31mMachete says: \033[0m'
+   cat $MACHETES/$1;
+  else 
+   echo -e '\033[0;31mMachete says choose: \033[0m'
+   select file in `ls $MACHETES`;
+   do
+     echo -e '\033[0;31mMachete says: \033[0m'
+     cat $MACHETES/$file
+     break;
+   done
+  fi
+ else
+   echo "This repo don't use machete"
+ fi
